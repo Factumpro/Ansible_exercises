@@ -1,0 +1,62 @@
+---
+  # Section 1.8 GNOME Display Manager
+  - name: "[1.8] Ensure GNOME Display Manager is installed"
+    stat:
+      path: /etc/dconf/profile/gdm
+    register: gdm_stat
+  ## NEED ADD level2 state true: 1.8.1 Ensure GNOME Display Manager is removed
+  - name: "[block name][1.8] GDM "
+    block:
+      - name: "[1.8.1][Automated] Ensure GDM login banner is configured"
+        template:
+          src: etc/dconf/profile/gdm.j2
+          dest: /etc/dconf/profile/gdm
+        tags:
+          - automated
+          - section1.8.1
+
+      - name: "[1.8.2][Automated] Ensure GDM login banner message is configured"
+        template:
+          src: etc/dconf/db/gdm.d/01-banner-message.j2
+          dest: /etc/dconf/db/gdm.d/01-banner-message
+        tags:
+          - automated
+          - section1.8.2
+
+      - name: "[1.8.3][Automated] Ensure last logged in user display is disabled"
+        template:
+          src: etc/dconf/db/gdm.d/00-login-screen.j2
+          dest: /etc/dconf/db/gdm.d/00-login-screen
+        tags:
+          - automated
+          - section1.8.3
+
+      - name: "[1.8.4][Automated] Ensure XDCMP is not enabled"
+        replace:
+          dest: /etc/gdm/custom.conf
+          regexp: '^\s*Enable\s*=\s*true'
+          replace: " "
+        tags:
+          - automated
+          - section1.8.4
+
+      - name: "[1.8.1-4][Automated] Ensure permissions are configured"
+        file:
+          path: /etc/{{ item }}
+          owner: root
+          group: root
+          mode: 0644
+        with_items:
+          - dconf/profile/gdm
+          - dconf/db/gdm.d/01-banner-message
+          - dconf/db/gdm.d/00-login-screen
+          - gdm/custom.conf
+        tags:
+          - automated
+          - section1.8.5
+    when:
+      - gdm_stat.stat.exists
+      - level1 is defined and level1
+    check_mode: "{{ global_check_mode }}"
+    tags:
+      - section1.8

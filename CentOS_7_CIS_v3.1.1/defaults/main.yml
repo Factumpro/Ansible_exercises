@@ -1,0 +1,34 @@
+---
+  # defaults file for CentOS_7_CIS_v3.1.1
+
+stable_os:
+  - centos 7
+
+# Whether to execute the `cis` role in check mode. Defaults to unset which
+# uses the global check mode.
+global_check_mode: false
+
+# Define what sections to run
+notauto: false
+section1: true
+section2: false
+section3: false
+section4: false
+section5: false
+section6: false
+section7: false
+
+# CIS Profile Definitions
+level1: true
+level2: false
+
+# Section 1.7 Command Line Warning Banners
+# Warning Banner Content (issue, issue.net, motd)
+cis_warning_banner: |
+  Authorized uses only. All activity may be monitored and reported.
+# End Banner
+
+# Section 1.8 GNOME Display Manager
+vars:
+  package_names:
+    - gdm

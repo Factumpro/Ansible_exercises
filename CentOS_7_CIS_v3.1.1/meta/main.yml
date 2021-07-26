@@ -1,0 +1,6 @@
+---
+  # meta file for CentOS_7_CIS_v3.1.1
+
+galaxy_info:
+  author: slidzona
+  description: CIS benchmarks

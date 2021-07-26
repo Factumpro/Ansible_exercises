@@ -1,0 +1,14 @@
+---
+  # Use your package manager to update all packages
+  # on the system according to site policy.
+  # The following command will install all available packages
+  # yum update
+  - name: "[1.9][Manual] |
+      Ensure updates, patches, and additional security software are installed"
+    debug: msg="Run yum update manually or during scheduled maintenance windows."
+    when:
+      - level1 is defined and level1
+    check_mode: "{{ global_check_mode }}"
+    tags:
+      - manual
+      - section1.9

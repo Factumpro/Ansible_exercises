@@ -1,0 +1,30 @@
+---
+  # tasks file for CentOS_7_CIS_v3.1.1
+
+- include: "preflight.yml"
+  tags:
+    - always
+
+- include: "section_1.yml"
+  become: yes
+  when: section1
+
+- include: "section_2.yml"
+  become: yes
+  when: section2
+
+- include: "section_3.yml"
+  become: yes
+  when: section3
+
+- include: "section_4.yml"
+  become: yes
+  when: section4
+
+- include: "section_5.yml"
+  become: yes
+  when: section4
+
+- include: "section_6.yml"
+  become: yes
+  when: section4

@@ -1,0 +1,67 @@
+---
+  # 1.5 Additional Process Hardening
+  - name: "[block name][1.5] APH"
+    block:
+      - name: "[block name][1.5.1] core dumps"
+        block:
+          - name: "[1.5.1][Automated] |
+              Ensure core dumps are restricted"
+            lineinfile:
+              dest: /etc/security/limits.conf
+              state: present                            
+              regexp: '^#?\\*.*core'
+              line: '* hard core 0'
+              insertbefore: '^# End of file'
+
+          - name: "[1.5.1][Automated] |
+              Ensure core dumps are restricted"
+            sysctl:
+              name: fs.suid_dumpable
+              value: 0
+              state: present
+              reload: yes
+              sysctl_set: yes
+              ignoreerrors: yes
+        tags:
+          - section1.5.1
+
+      - name: "[1.5.2][Automated] |
+          Ensure XD/NX support is enabled"
+        debug:
+          msg: "*** Too destructive for production systems. Evaluate for your environment first."
+        tags:
+          - section1.5.2
+
+      - name: "[1.5.3][Automated] |
+          Ensure address space layout randomization (ASLR) is enabled"
+        sysctl:
+          name: kernel.randomize_va_space
+          value: 2
+          state: present
+          reload: yes
+          sysctl_set: yes
+          ignoreerrors: yes
+        tags:
+          - section1.5.3
+
+      - name: "[block name][1.5.4] Prelink"
+        block:
+          - name: "[1.5.4][Automated] |
+              Ensure prelink is not installed"
+            command: prelink -ua
+            register: prelink_installed
+            when:
+              - prelink_installed is defined and prelink_installed.rc == 0
+
+          - name: "[1.5.4][Automated] |
+              Ensure prelink is not installed"
+            yum:
+              name: prelink
+              state: absent
+        tags:
+          - section1.5.4
+    when:
+      - level1 is defined and level1
+    check_mode: "{{ global_check_mode }}"
+    tags:
+      - section1.5

@@ -1,0 +1,9 @@
+---
+
+- name: "Section 1"
+  block:
+    - include: section1/section_1_level1.yml
+    - include: section1/section_1_level2.yml
+  tags:
+    - section1
+    - level2

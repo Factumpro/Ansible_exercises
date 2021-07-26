@@ -1,0 +1,20 @@
+# CIS benchamrks
+# 1.7.1 Ensure message of the day is configured properly (Automated)
+
+# MOTD Section #
+# Section 1.7.1.1 | Ensure message of the day is configured properly
+# Warning Banner Content (issue, issue.net, motd)
+centos7cis_warning_banner: |
+    Authorized uses only. All activity may be monitored and reported.A
+
+- name: "SCORED [1.7.1.1] Ensure message of the day is configured properly"
+  template:
+    src: etc/motd.j2
+    dest: /etc/motd
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+  tags:
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.1

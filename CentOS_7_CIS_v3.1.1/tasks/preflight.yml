@@ -1,0 +1,21 @@
+---
+  - name: "Preflight | Check OS version"
+    fail:
+      msg: "This role is not stable for the target operating system, {{ ansible_distribution }} {{ ansible_distribution_major_version }}."
+    when:
+      #- 'ansible_distribution is not defined'
+      #- 'ansible_distribution_version is not defined'
+      #- 'ansible_distribution|lower+" |
+      #    "+ansible_distribution_major_version not in stable_os'
+      (ansible_distribution is not defined) or
+      (ansible_distribution_version is not defined) or
+      (ansible_distribution|lower+" "+ansible_distribution_major_version not in stable_os)
+    tags:
+      - os_version
+
+  - name: "Preflight | Check Ansible version"
+    fail:
+      msg: "You must use Ansible 2.5 or greater"
+    when: not ansible_version.full is version_compare('2.5', '>=')
+    tags:
+      - ansible_version
