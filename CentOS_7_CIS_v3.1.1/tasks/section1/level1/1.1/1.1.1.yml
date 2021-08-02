@@ -1,0 +1,24 @@
+---
+  - name: "[block name] 1.1.1. | "
+    block:
+      # 1.1.1.1
+      - name:
+
+        tags:
+          - automated
+          - section1.1.1.1
+
+      # 1.1.1.2
+      - name:
+
+        tags:
+          - automated
+          - section1.1.1.2
+      # 1.1.1.3
+      - name:
+
+        tags:
+          - automated
+          - section1.1.1.3
+    tags:
+      - section1.1.1

@@ -6,10 +6,9 @@ stable_os:
 
 # Whether to execute the `cis` role in check mode. Defaults to unset which
 # uses the global check mode.
-global_check_mode: false
+global_check_mode: true
 
 # Define what sections to run
-notauto: false
 section1: true
 section2: false
 section3: false

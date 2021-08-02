@@ -6,4 +6,3 @@
     - include: section1/section_1_level2.yml
   tags:
     - section1
-    - level2
