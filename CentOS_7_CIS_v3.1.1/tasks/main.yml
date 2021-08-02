@@ -23,8 +23,8 @@
 
 - include: "section_5.yml"
   become: yes
-  when: section4
+  when: section5
 
 - include: "section_6.yml"
   become: yes
-  when: section4
+  when: section6

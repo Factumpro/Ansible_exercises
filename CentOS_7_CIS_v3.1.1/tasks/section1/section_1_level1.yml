@@ -29,4 +29,3 @@
         include: section1/level1/1.9.yml
     tags:
       - level1
-      - section1
